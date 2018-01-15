@@ -23,6 +23,6 @@ The Detailed documentation is available [here](http://docs.gocashfree.com/docs/v
 
 2.  Then click the "+" button on "Embedded Binaries" under the "General" tab of your ios app project file.
 
-3.  Select iosCashfreeSdk.framework (See image below), and click Finish button.
+3.  Select iosCashfreeSdk.framework, and click Finish button.
 
 4.  Add the Swift [code snippets](http://docs.gocashfree.com/docs/v1/?swift#mobile-app-ios) to your ViewController.swift
