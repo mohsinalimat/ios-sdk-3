@@ -9,12 +9,11 @@
 import UIKit
 import iosCashfreeSdk
 
-// Use the ResultDelegate ONLY if you want to use Individual payment views (Not required by Tab Bar View)
-class ViewController: UIViewController, ResultDelegate {
+class ViewController: UIViewController {
     
     // MARK: Step 1 - Set Variables (MUST NOT BE EMPTY)
     // Note - Please add the 3 keys (without the qoutes) in your project's "info.plist" file and set correct value for them
-
+    
     // If you are testing in development, please set value of "CF_ENV" as "TEST" (without qoutes) in your project's Info.plist file.
     // Else if you are building your app for Production (Appstore), please set the value of "CF_ENV" to "PROD" (without qoutes) in your project's Info.plist file.
     
@@ -29,7 +28,7 @@ class ViewController: UIViewController, ResultDelegate {
     
     // MARK: Step 2 - Pass your variables (Eg: orderId, orderAmount etc)
     
-    let orderId = "order_id"
+    let orderId = "orderId"
     let orderAmount = "102.00"
     let customerEmail = "yourname@example.com"
     let customerPhone = "9876543210"
@@ -39,99 +38,12 @@ class ViewController: UIViewController, ResultDelegate {
     var paymentReady = "" // MUST BE A VAR with the value ""
     // End of Step 2
     
+    // Use below values for color1Hex and color2Hex if you want to use our example
+    // let color1Hex = 255fdb
+    // let color2Hex = 00ff6b
     
-    // USE ANY OF THE BELOW IBAction Codes (We recommend using the payTabBarButton which shows all Payment methods in a Tab Bar Controller)
-    
-    // MARK: To present Only a Card Payment View
-    @IBAction func cardButton(_ sender: Any) {
-        
-        let myBundle = Bundle(for: cardViewController.self)
-        let mainView: UIStoryboard = UIStoryboard(name: "CF", bundle: myBundle)
-        let cardVC = mainView.instantiateViewController(withIdentifier: "cardVC") as! cardViewController
-        
-        cardVC.resultDelegate = self
-        print(cardVC)
-        print(cardVC.resultDelegate)
-        print(self)
-        
-        cardVC.appId = appId
-        cardVC.merchantName = merchantName
-        cardVC.orderId = orderId
-        cardVC.orderAmount = orderAmount
-        cardVC.customerEmail = customerEmail
-        cardVC.customerPhone = customerPhone
-        cardVC.paymentToken_config = paymentReady
-        
-        self.present(cardVC, animated: true, completion: nil)
-    }
-    // End of Only Showing Card Payment
-    
-    // MARK: To present Only a Netbanking
-    @IBAction func netbankingButton(_ sender: Any) {
-    
-        let myBundle = Bundle(for: cardViewController.self)
-        let mainView: UIStoryboard = UIStoryboard(name: "CF", bundle: myBundle)
-        
-        let nbVC = mainView.instantiateViewController(withIdentifier: "nbVC") as! netBankingViewController
-        
-        nbVC.resultDelegate = self
-        
-        nbVC.appId = appId
-        nbVC.merchantName = merchantName
-        nbVC.orderId = orderId
-        nbVC.orderAmount = orderAmount
-        nbVC.customerEmail = customerEmail
-        nbVC.customerPhone = customerPhone
-        nbVC.nb_paymentToken_config = paymentReady
-        
-        self.present(nbVC, animated: true, completion: nil)
-        
-        
-    }
-    // End of Only Showing Netbanking
-    
-    // MARK: To present Only a Wallet
-    @IBAction func walletButton(_ sender: Any) {
-        
-        let myBundle = Bundle(for: cardViewController.self)
-        let mainView: UIStoryboard = UIStoryboard(name: "CF", bundle: myBundle)
-        
-        let walletVC = mainView.instantiateViewController(withIdentifier: "walletVC") as! walletViewController
-        
-        walletVC.resultDelegate = self
-        
-        walletVC.appId = appId
-        walletVC.merchantName = merchantName
-        walletVC.orderId = orderId
-        walletVC.orderAmount = orderAmount
-        walletVC.customerEmail = customerEmail
-        walletVC.customerPhone = customerPhone
-        walletVC.wallet_paymentToken_config = paymentReady
-        
-        self.present(walletVC, animated: true, completion: nil)
-    }
-    // End of Only Showing Wallet
-    
-    // MARK: To present Only a UPI
-    @IBAction func upiButton(_ sender: Any) {
-        let myBundle = Bundle(for: cardViewController.self)
-        let mainView: UIStoryboard = UIStoryboard(name: "CF", bundle: myBundle)
-        
-        let upiVC = mainView.instantiateViewController(withIdentifier: "upiVC") as! upiViewController
-        
-        upiVC.resultDelegate = self
-        
-        upiVC.appId = appId
-        upiVC.merchantName = merchantName
-        upiVC.orderId = orderId
-        upiVC.orderAmount = orderAmount
-        upiVC.customerEmail = customerEmail
-        upiVC.customerPhone = customerPhone
-        upiVC.upi_paymentToken_config = paymentReady
-        
-        self.present(upiVC, animated: true, completion: nil)
-    }
-    // End of Only Showing UPI
+    let color1Hex = "7d559f"
+    let color2Hex = "de97ec"
     
     // MARK: To present all Payment Options in a Tab Bar Controller
     @IBAction func payTabBarButton(_ sender: Any) {
@@ -142,7 +54,7 @@ class ViewController: UIViewController, ResultDelegate {
         let paymentVC = mainView.instantiateViewController(withIdentifier: "PGTabBar") as! PGTabBarViewController
         
         let payTab = PGTabBarViewController()
-        payTab.createOrder(env: environment, url: url, merchantName: merchantName, appId: appId, orderId: orderId, orderAmount: orderAmount, customerEmail: customerEmail, customerPhone: customerPhone, paymentReady: paymentReady, orderNote: orderNote, customerName: customerName)
+        payTab.createOrder(env: environment, url: url, merchantName: merchantName, appId: appId, orderId: orderId, orderAmount: orderAmount, customerEmail: customerEmail, customerPhone: customerPhone, paymentReady: paymentReady, orderNote: orderNote, customerName: customerName, color1Hex: color1Hex, color2Hex: color2Hex)
         
         self.present(paymentVC, animated: false, completion: nil)
     }
@@ -157,7 +69,10 @@ class ViewController: UIViewController, ResultDelegate {
         
         _ = cf.initPayment(url: url, appId: appId, orderId: orderId, orderAmount: orderAmount, customerEmail: customerEmail, customerPhone: customerPhone, completion: { output in
             self.paymentReady = (output)
+            
+            print("THIS IS THE TOKEN: \(self.paymentReady)")
         })
+        
         // End of Step 4
     }
     
@@ -169,18 +84,16 @@ class ViewController: UIViewController, ResultDelegate {
         
         let transactionResult = paymentVC.getResult()
         print("The transaction result received in the Example App codebase is \(transactionResult)")
+        
+        if transactionResult != "" {
+            UIAlertView.init(title: "Payment Response", message: "Payment Completed", delegate: self, cancelButtonTitle: "OK").show()
+            //use "message: transactionResult" if you want to see the raw transaction response json string
+        } else {
+            print("No payment response received.")
+        }
+        
+        
     }
     // End of function that contains the result after payment is completed by the user.
-    
-
-    
-    // NOTE - Only If you are using Individual View (eg: Only Card Payment View), Use this function which contains the result after payment is completed by the user in a individual payment method view (Eg: Only Card Payment View).
-    // This is a protocol stub for "ResultDelegate"
-    
-    func onPaymentCompletion(msg: String) {
-        print("Payment completion details are - \(msg)")
-    }
-    // End of Step 5
 
 }
-
