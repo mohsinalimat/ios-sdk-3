@@ -5,11 +5,11 @@
 	<key>CF_ENV</key>
 	<string>TEST</string>
 	<key>CF_URL</key>
-	<string>https://YOURDOMAINHERE.com/checksumjson</string>
+	<string>https://YOURWEBSITEURLHERE.com/checksum</string>
 	<key>CF_MERCHANT_NAME</key>
 	<string>YOUR MERCHANT NAME HERE</string>
 	<key>CF_API_KEY</key>
-	<string>YOUR API KEY HERE</string>
+	<string>YOUR CASHFREE API KEY</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
