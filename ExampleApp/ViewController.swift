@@ -3,7 +3,7 @@
 //  ExampleApp
 //
 //  Created by Basil M Kuriakose on 27/12/17.
-//  Copyright © 2017 Cashfree. All rights reserved.
+//  Copyright © 2018 Cashfree. All rights reserved.
 //
 
 import UIKit
@@ -69,8 +69,6 @@ class ViewController: UIViewController {
         
         _ = cf.initPayment(url: url, appId: appId, orderId: orderId, orderAmount: orderAmount, customerEmail: customerEmail, customerPhone: customerPhone, completion: { output in
             self.paymentReady = (output)
-            
-            print("THIS IS THE TOKEN: \(self.paymentReady)")
         })
         
         // End of Step 4
