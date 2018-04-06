@@ -1,0 +1,11 @@
+framework module iosCashfreeSdk {
+  umbrella header "iosCashfreeSdk.h"
+
+  export *
+  module * { export * }
+}
+
+module iosCashfreeSdk.Swift {
+    header "iosCashfreeSdk-Swift.h"
+    requires objc
+}
