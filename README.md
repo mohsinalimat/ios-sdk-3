@@ -2,7 +2,7 @@
 ### iOS Integration
 
 Welcome to iosCashfreeSDK repository. This repo hosts both the iOS Library iosCashfreeSDK as well as a Example App to get you started.
-The Detailed documentation is available [here](http://docs.gocashfree.com/docs/v1/?swift#mobile-app-ios).
+The Detailed documentation is available [here](https://docs.cashfree.com/docs/ios/guide/).
 
 <b> Add the configuration keys and values to your project's info.plist </b>
 
