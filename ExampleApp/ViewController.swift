@@ -24,6 +24,8 @@ class ViewController: UIViewController, ResultDelegate {
     let appId = Bundle.main.infoDictionary?["CF_API_KEY"] as! String // MUST NOT BE NIL
     let merchantName = Bundle.main.infoDictionary?["CF_MERCHANT_NAME"] as! String // MUST NOT BE NIL
     let notifyUrl = Bundle.main.infoDictionary?["CF_NOTIFYURL"] as! String // MUST NOT BE NIL
+    
+    let paytmOption = Bundle.main.infoDictionary?["CF_PAYTM"] as! String // MUST NOT BE NIL
     // End of Step 1
     
     
@@ -50,6 +52,31 @@ class ViewController: UIViewController, ResultDelegate {
     let color2Hex = "de97ec"
     
     // End Customize colors
+    
+    // This is Struct for the result (See viewDidAppear)
+    struct Result : Codable {
+        let orderId: String
+        let referenceId: String
+        let orderAmount: String
+        let txStatus: String
+        let txMsg: String
+        let txTime: String
+        let paymentMode: String
+        let signature: String
+        
+        enum CodingKeys : String, CodingKey {
+            case orderId
+            case referenceId
+            case orderAmount
+            case txStatus
+            case txMsg
+            case txTime
+            case paymentMode
+            case signature
+        }
+    }
+    
+    // End of Struct for the result
     
     // USE ANY OF THE BELOW IBAction Codes (We recommend using the payTabBarButton which shows all Payment methods in a Tab Bar Controller)
     
@@ -150,7 +177,9 @@ class ViewController: UIViewController, ResultDelegate {
         let paymentVC = mainView.instantiateViewController(withIdentifier: "PGTabBar") as! PGTabBarViewController
         
         let payTab = PGTabBarViewController()
-        payTab.createOrder(env: environment, url: url, merchantName: merchantName, appId: appId, orderId: orderId, orderAmount: orderAmount, customerEmail: customerEmail, customerPhone: customerPhone, paymentReady: paymentReady, orderNote: orderNote, customerName: customerName, color1Hex: color1Hex, color2Hex: color2Hex, orderCurrency: orderCurrency, notifyUrl: notifyUrl)
+
+        // CREATE AN ORDER
+        payTab.createOrder(orderId: orderId, orderAmount: orderAmount, customerEmail: customerEmail, customerPhone: customerPhone, paymentReady: paymentReady, orderNote: orderNote, customerName: customerName, orderCurrency: orderCurrency, notifyUrl: notifyUrl)
         
         self.present(paymentVC, animated: false, completion: nil)
     }
@@ -159,6 +188,13 @@ class ViewController: UIViewController, ResultDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // MARK: Step 3
+        let payTab = PGTabBarViewController()
+        
+        payTab.setConfig(env: environment, appId: appId, url: url, merchantName: merchantName, paytmOption: paytmOption, color1Hex: color1Hex, color2Hex: color2Hex)
+        
+        // End of Step 3
         
         // MARK: Step 4 Call the initPayment method on "viewDidLoad()"
         let cf = cardViewController()
@@ -175,8 +211,24 @@ class ViewController: UIViewController, ResultDelegate {
     override func viewDidAppear(_ animated: Bool) {
         let paymentVC = PGTabBarViewController()
         
-        let transactionResult = paymentVC.getResult()
-        print("The transaction result received in the Example App codebase is \(transactionResult)")
+        var transactionResult = paymentVC.getResult()
+        var inputJSON = "\(transactionResult)"
+        
+        let inputData = inputJSON.data(using: .utf8)!
+        let decoder = JSONDecoder()
+        
+        if inputJSON != "" {
+            do {
+                let result = try decoder.decode(Result.self, from: inputData)
+                print(result.orderId)
+                print(result)
+            } catch {
+                // handle exception
+                print("Error Occured")
+            }
+        } else {
+            print("transactionResult is empty")
+        }
     }
     // End of function that contains the result after payment is completed by the user.
     
