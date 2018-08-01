@@ -2,18 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CF_PAYTM</key>
-	<string>NO</string>
-	<key>CF_NOTIFYURL</key>
-	<string>https://YOURWEBSITE-NOTIFYURL.com/notifyurlExample</string>
-	<key>CF_ENV</key>
-	<string>TEST</string>
-	<key>CF_URL</key>
-	<string>https://YOURWEBSITEURLHERE.com/checksum</string>
-	<key>CF_MERCHANT_NAME</key>
-	<string>YOUR MERCHANT NAME HERE</string>
-	<key>CF_API_KEY</key>
-	<string>YOUR CASHFREE API KEY</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -30,6 +18,18 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>CF_API_KEY</key>
+	<string>YOUR_API_KEY</string>
+	<key>CF_ENV</key>
+	<string>TEST</string>
+	<key>CF_MERCHANT_NAME</key>
+	<string>YOUR_MERCHANT_NAME</string>
+	<key>CF_NOTIFYURL</key>
+	<string>YOUR_NOTIFY_URL</string>
+	<key>CF_TEZ</key>
+	<string>YES</string>
+	<key>CF_URL</key>
+	<string>YOUR_CHECKSUM_URL</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -43,8 +43,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
