@@ -25,7 +25,7 @@ class ViewController: UIViewController, ResultDelegate {
     let merchantName = Bundle.main.infoDictionary?["CF_MERCHANT_NAME"] as! String // MUST NOT BE NIL
     let notifyUrl = Bundle.main.infoDictionary?["CF_NOTIFYURL"] as! String // MUST NOT BE NIL
     
-    let walletArray = ["paytm","airtel","freecharge","jio","mobikwik","ola"] // MUST NOT BE NIL
+    let walletArray = ["amazonpay","phonepe","paytm","airtel","freecharge","jio","mobikwik","ola"] // MUST NOT BE NIL
     
     let tezOption = Bundle.main.infoDictionary?["CF_TEZ"] as! String // MUST NOT BE NIL
     // End of Step 1
